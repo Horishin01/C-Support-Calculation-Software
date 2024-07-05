@@ -33,6 +33,7 @@ namespace PE15_01
         public void Clear()
         {
             __taxPrices.Clear();
+            //test
         }
     }
 }
