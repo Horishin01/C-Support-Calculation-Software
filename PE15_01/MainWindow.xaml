@@ -1,0 +1,83 @@
+﻿<Window x:Class="PE15_01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PE15_01"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <local:PartShift x:Key="partShift"/>
+        <local:information x:Key="intFormatConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <!--＝＝＝＝＝↓区分け↓＝＝＝＝＝-->
+
+        <!--縦-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--横-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <!--＝＝＝＝＝↑区分け終了↑＝＝＝＝＝-->
+
+
+        <!--＝＝＝＝＝↓以下GUI部品↓＝＝＝＝＝-->
+
+        <Label Content="ディレクトリ情報" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  VerticalAlignment="Top"/>
+
+        <!--メニュー画面-->
+        <Menu Grid.Row="1" Grid.ColumnSpan="4">
+            <MenuItem Header="ファイル">
+                <MenuItem x:Name="new"    Header="新規作成"          />
+                <MenuItem x:Name="open"   Header="開く"              />
+                <MenuItem x:Name="save"   Header="上書き保存"        />
+                <MenuItem x:Name="saveAs" Header="名前を付けて保存"  />
+            </MenuItem>
+            <MenuItem Header="設定">
+                <MenuItem x:Name="infomation"   Header="シフト設定"   Click="Infomation_Click"  />
+                <MenuItem x:Name="s"   Header="開く"                 />
+                <MenuItem x:Name="d"   Header="上書き保存"           />
+                <MenuItem x:Name="f"   Header="名前を付けて保存"     />
+            </MenuItem>
+        </Menu>
+
+        <Label Content="収入情報"     Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2"  VerticalAlignment="Top"/>
+        <Label Content="税金情報"     Grid.Row="2"  Grid.Column="2" Grid.ColumnSpan="2"  VerticalAlignment="Top"/>
+
+        <ListView x:Name="listView" Grid.Row="3" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="2"
+                  SelectionChanged="listView_SelectionChanged"
+                  ItemsSource="{Binding Source={StaticResource partShift},Path=TaxPrices}">
+            <ListView.View>
+                
+                <GridView>
+                    <GridViewColumn Header="勤務先"   DisplayMemberBinding="{Binding Name}"        />
+                    <GridViewColumn Header="時給"     DisplayMemberBinding="{Binding HourlyPay}"   />
+                    <GridViewColumn Header="年実労働" DisplayMemberBinding="{Binding RealMonthPay}"/>
+                    <GridViewColumn Header="年労働"   DisplayMemberBinding="{Binding MonthlyPay}"  />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Label Content="扶養控除金額" Grid.Row="3"  Grid.Column="2" VerticalAlignment="Top"/>
+        <Label Content="" Grid.Row="3"  Grid.Column="3" VerticalAlignment="Top"            />
+
+        <Label Content="外れるまで"   Grid.Row="4"  Grid.Column="2" VerticalAlignment="Top"/>
+        <Label Content=""   Grid.Row="4"  Grid.Column="3" VerticalAlignment="Top"/>
+
+        <!--＝＝＝＝＝↑以下GUI部品↑＝＝＝＝＝-->
+    </Grid>
+</Window>
